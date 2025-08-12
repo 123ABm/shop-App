@@ -5,6 +5,14 @@
  */
 import 'vue'
 
+// src/types/components.d.ts
+import XtxSwiper from './XtxSwiper.vue'
+declare module 'vue' {
+  export interface GlobalComponents {
+    XtxSwiper: typeof XtxSwiper
+  }
+}
+
 declare module 'vue' {
   export interface GlobalComponents {
     // uni-ui 组件类型声明 - 使用 @uni-helper/uni-ui-types 提供的类型
