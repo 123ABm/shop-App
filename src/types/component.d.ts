@@ -1,19 +1,20 @@
-/**
- * declare module '@vue/runtime-core'
- *   现调整为
- * declare module 'vue'
- */
-import 'vue'
+// types/components.d.ts
+import XtxSwiper from '@/components/XtxSwiper.vue'
+import XtxGuess from '@/components/XtxGuess.vue'
+import PageSkeleton from '@/pages/index/components/PageSkeleton.vue'
 
-// src/types/components.d.ts
-import XtxSwiper from './XtxSwiper.vue'
 declare module 'vue' {
   export interface GlobalComponents {
     XtxSwiper: typeof XtxSwiper
+    XtxGuess: typeof XtxGuess
+    PageSkeleton: typeof PageSkeleton
   }
 }
 
-declare module 'vue' {
+// 组件实例类型
+export type XtxGuessInstance = InstanceType<typeof XtxGuess>
+
+/* declare module 'vue' {
   export interface GlobalComponents {
     // uni-ui 组件类型声明 - 使用 @uni-helper/uni-ui-types 提供的类型
     UniCard: import('@uni-helper/uni-ui-types')['UniCard']
@@ -55,3 +56,4 @@ declare module 'vue' {
     UniTransition: import('@uni-helper/uni-ui-types')['UniTransition']
   }
 }
+ */
