@@ -1,4 +1,4 @@
-import type { ProfileDetail } from '@/types/member'
+import type { ProfileDetail, ProfileParams } from '@/types/member'
 import { http } from '@/utils/http'
 
 /**

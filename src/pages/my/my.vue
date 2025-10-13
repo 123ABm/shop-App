@@ -51,7 +51,7 @@ const orderTypes = [
           </view>
         </view>
       </view>
-      <navigator class="settings" url="/pagesMember/settings/settings" hover-class="none">
+      <navigator class="settings" url="/pages/pagesMember/settings/settings" hover-class="none">
         设置
       </navigator>
     </view>
@@ -74,6 +74,7 @@ const orderTypes = [
           hover-class="none"
         >
           {{ item.text }}
+          0
         </navigator>
         <!-- 客服 -->
         <button class="contact icon-handset" open-type="contact">售后</button>

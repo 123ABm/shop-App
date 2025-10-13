@@ -1,10 +1,15 @@
 <script setup lang="ts">
-import { getMemberProfileAPI } from '@/services/profile'
+import { getMemberProfileAPI, putMemberProfileAPI } from '@/services/profile'
 import type { Gender, ProfileDetail } from '@/types/member'
 import { onLoad } from '@dcloudio/uni-app'
+import { useMemberStore } from '@/stores'
 import { ref } from 'vue'
+
+// 点击保存提交表单
+const memberStore = useMemberStore()
 // 获取屏幕边界到安全区域距离
 const { safeAreaInsets } = uni.getSystemInfoSync()
+
 // 获取个人信息
 // 获取个人信息，修改个人信息需提供初始值
 const profile = ref({} as ProfileDetail)
@@ -69,13 +74,38 @@ const onFullLocationChange: UniHelper.RegionPickerOnChange = (ev) => {
 onLoad(() => {
   getMemberProfileData()
 })
+
+// 点击保存提交表单
+const onSubmit = async () => {
+  const { nickname, gender, birthday, profession } = profile.value
+  const res = await putMemberProfileAPI({
+    nickname,
+    gender,
+    birthday,
+    profession,
+    provinceCode: fullLocationCode[0],
+    cityCode: fullLocationCode[1],
+    countyCode: fullLocationCode[2],
+  })
+  // 更新Store昵称
+  memberStore.profile!.nickname = res.result.nickname
+  uni.showToast({ icon: 'success', title: '保存成功' })
+  setTimeout(() => {
+    uni.navigateBack()
+  }, 400)
+}
 </script>
 
 <template>
   <view class="viewport">
     <!-- 导航栏 -->
     <view class="navbar" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
-      <navigator open-type="navigateBack" class="back icon-left" hover-class="none"></navigator>
+      <navigator
+        url="/pages/pagesMember/my/my"
+        open-type="navigateBack"
+        class="back icon-left"
+        hover-class="none"
+      ></navigator>
       <view class="title">个人信息</view>
     </view>
     <!-- 头像 -->
@@ -95,12 +125,12 @@ onLoad(() => {
         </view>
         <view class="form-item">
           <text class="label">昵称</text>
-          <input class="input" type="text" placeholder="请填写昵称" :value="profile?.nickname" />
+          <input class="input" type="text" placeholder="请填写昵称" v-model="profile.nickname" />
         </view>
         <view class="form-item">
           <text class="label">性别</text>
-          <radio-group>
-            <label class="radio" @change="onGenderChange">
+          <radio-group @change="onGenderChange">
+            <label class="radio">
               <radio value="男" color="#27ba9b" :checked="profile?.gender === '男'" />
               男
             </label>
@@ -142,7 +172,7 @@ onLoad(() => {
         </view>
       </view>
       <!-- 提交按钮 -->
-      <button class="form-button">保 存</button>
+      <button class="form-button" @tap="onSubmit">保 存</button>
     </view>
   </view>
 </template>
