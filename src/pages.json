@@ -68,6 +68,12 @@
       "style": {
         "navigationBarTitleText": "address-form"
       }
+    },
+    {
+      "path": "pages/cart/cart2",
+      "style": {
+        "navigationBarTitleText": "cart2"
+      }
     }
   ],
   "easycom": {
