@@ -109,7 +109,7 @@ const gotoPayment = () => {
   }
   // 跳转到结算页
   uni.showToast({ icon: 'none', title: '即将去订单页面' })
-  // uni.navigateTo({ url: '/pagesOrder/create/create' })
+  uni.navigateTo({ url: '/pages/pagesOrder/create/create' })
 }
 
 // 初始化调用: 页面显示触发

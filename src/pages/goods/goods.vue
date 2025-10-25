@@ -60,6 +60,11 @@ const getGoodsByIdData = async () => {
   }
 }
 
+// 立即购买
+const onBuyNow = (ev: SkuPopupEvent) => {
+  uni.navigateTo({ url: `/pages/pagesOrder/create/create?skuId=${ev._id}&count=${ev.buy_num}` })
+}
+
 // 页面加载
 onLoad(() => {
   getGoodsByIdData()
@@ -239,6 +244,7 @@ const goToCart = () => {
       backgroundColor: '#E9F8F5',
     }"
     @add-cart="onAddCart"
+    @buy-now="onBuyNow"
   />
 </template>
 
